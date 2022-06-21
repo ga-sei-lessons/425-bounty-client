@@ -6,7 +6,8 @@ import BountyCreateForm from '../BountyCreateForm'
 export default function Home() {
 	// bounties from the backend
 	const [bounties, setBounties] = useState([])
-
+	// error message state
+	const [err, setErr] = useState('')
 	useEffect(() => {
 		const fetchBounties = async () => {
 			try {
@@ -48,8 +49,16 @@ export default function Home() {
 				reward: 100000,
 				lastSeen: ''
 			})
+			// clear error
+			setErr('')
 		} catch (err) {
 			console.warn('submit error: ', err)
+			if (err.response) {
+				if (err.response.status === 400) {
+					// this error is a validation error from our backed
+					setErr(err.response.data.msg)
+				}
+			}
 		}
 	}
 
@@ -64,6 +73,7 @@ export default function Home() {
 	return (
 		<div>
 			<h1>Create New Bounty:</h1>
+			<p>{err}</p>
 			<BountyCreateForm 
 				submitHandler={handleSubmit}
 			/>
