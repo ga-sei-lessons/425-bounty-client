@@ -11,7 +11,7 @@ export default function BountyCreateForm({ submitHandler }) {
 	})
 
 	return (
-		<form onSubmit={e => submitHandler(e, form)}>
+		<form onSubmit={e => submitHandler(e, form, setForm)}>
 			<label htmlFor='name'>Name:</label>
 			<input 
 				type='text'

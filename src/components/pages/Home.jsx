@@ -21,10 +21,36 @@ export default function Home() {
 	}, []) // get all the bounties when the page loads
 
 	// submit handler function
-	const handleSubmit = (e, form) => {
+	const handleSubmit = async (e, form, setForm) => {
 		e.preventDefault()
 		// axios to POST a new bounty using the form state
 		console.log('the form data is:', form)
+		try {
+			// post to the backend
+			// axios.post(url, request body/form data, options)
+			const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/bounties`, form)
+			// update state with the new data to see it
+			// option 1 -- add this new bounty into state
+			setBounties([...bounties, response.data])
+			// option 2 -- we can get all the bounties from the backend and set them in state
+			// const bountiesResponse = await axios.get(`${process.env.REACT_APP_SERVER_URL}/bounties`)
+			// setBounties(bountiesResponse.data)
+
+
+			// console.log(response)
+			// clear the form -- ????
+			// form has submitted correctly -- clear it
+			setForm({
+				name: '',
+				wantedFor: '',
+				client: '',
+				ship: '',
+				reward: 100000,
+				lastSeen: ''
+			})
+		} catch (err) {
+			console.warn('submit error: ', err)
+		}
 	}
 
 	console.log('my server url is:', process.env.REACT_APP_SERVER_URL)
