@@ -1,14 +1,7 @@
 import { useState } from 'react'
 
-export default function BountyCreateForm({ submitHandler }) {
-	const [form, setForm] = useState({
-		name: '',
-		wantedFor: '',
-		client: '',
-		ship: '',
-		reward: 100000,
-		lastSeen: ''
-	})
+export default function BountyForm({ submitHandler, initialForm }) {
+	const [form, setForm] = useState(initialForm)
 
 	return (
 		<form onSubmit={e => submitHandler(e, form, setForm)}>
@@ -59,7 +52,7 @@ export default function BountyCreateForm({ submitHandler }) {
 				value={form.lastSeen}
 				onChange={e => setForm({ ...form, lastSeen: e.target.value})}
 			/>
-			<button type="submit">Create</button>
+			<button type="submit">Submit</button>
 		</form>
 	)
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import BountyCreateForm from '../BountyCreateForm'
+import BountyForm from '../BountyForm'
 
 export default function Home() {
 	// bounties from the backend
@@ -74,8 +74,16 @@ export default function Home() {
 		<div>
 			<h1>Create New Bounty:</h1>
 			<p>{err}</p>
-			<BountyCreateForm 
+			<BountyForm
 				submitHandler={handleSubmit}
+				initialForm={{
+					name: '',
+					wantedFor: '',
+					client: '',
+					ship: '',
+					reward: 100000,
+					lastSeen: ''
+				}}
 			/>
 			<h1>Current Bounties:</h1>
 
